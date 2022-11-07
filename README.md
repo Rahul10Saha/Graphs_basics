@@ -429,4 +429,18 @@ dp[0][1] ---> (0->1) cost = 6;  // direct path
  
  So, generalized statement : min(dp[i][k] + dp[k][j])
  
+ -Preferable to work with the directed graphs, but if anyhow undirected graphs exists
+ convert them to directed as well
+ ![image](https://user-images.githubusercontent.com/65001893/200352393-d412e1ea-1fa8-490f-93ae-22da29ebc9d7.png)
+ 
+ Now, how to detect a negative cycle?
+ 
+ ```mermaid
+graph TD;
+    0---2-->1;
+    1---3-->2;
+    2--2-->0;
+```
+ 
+
  
