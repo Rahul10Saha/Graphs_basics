@@ -278,3 +278,76 @@ graph TD;
     2--7-->6;
     1--4-->5;
 ```
+
+
+# Dijkistra Algorithm
+
+- Single source multiple destination algorithm
+- BFS Algorithm
+- Single source to various destination in shortest possible paths
+
+### Way 1: Priority Queue (since minimum distance is there, prioritize the minimum weights, ---> Greedy Approach)
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> iPair;
+
+void addEdge(vector <pair<int, int> > adj[], int u,
+                                     int v, int wt)
+{
+    adj[u].push_back(make_pair(v, wt));
+    adj[v].push_back(make_pair(u, wt));
+}
+
+void dijkistra(int V, vector<iPair> adj[], int source)
+{
+    priority_queue<iPair,vector<iPair>,greater<iPair>> pq;
+    vector<int> dist(V,INT_MAX);
+
+    dist[source] = 0;
+    pq.push({0,source});
+
+    while(!pq.empty())
+    {
+        int dis = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        for(auto it: adj[node])
+        {
+            int edgeweight = it.second;
+            int adjnode = it.first;
+            if(dis+edgeweight < dist[adjnode])
+            {
+                dist[adjnode] = dis + edgeweight;
+                pq.push({dist[adjnode],adjnode});
+            }
+        }
+    }
+
+    for(int i=0;i<dist.size();i++)
+        cout<<"The distance of node"<<i<<"from"<<source<<"is"<<dist[i]<<endl;
+}
+
+int main()
+{
+    int V = 7;
+    vector<iPair > adj[V];
+    addEdge(adj, 0, 1, 1);
+    addEdge(adj, 1, 2, 2);
+    addEdge(adj, 2, 3, 3);
+    addEdge(adj, 1, 4, 1);
+    addEdge(adj, 1, 5, 4);
+    addEdge(adj, 2, 4, 3);
+    addEdge(adj, 2, 6, 7);
+    addEdge(adj, 3, 4, 5);
+    addEdge(adj, 3, 6, 8);
+    addEdge(adj, 4, 5, 9);
+
+    dijkistra(V,adj,0);
+    return 0;
+}
+```
+
+
