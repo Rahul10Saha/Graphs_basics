@@ -1,6 +1,14 @@
 # Graphs_basics
 Let's start with BFS and DFS traversal of a graph. 
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    A-->D;
+    B-->E;
+```
+
 ## BFS Traversal
 
 - Using Queue
@@ -170,3 +178,8 @@ int main()
 
 ![image](https://user-images.githubusercontent.com/65001893/200225206-7862418f-2c25-4f67-a802-fc3f915d8ab0.png)
 
+- Intuition: Start with the minimum cost wala edges 
+- Therefore, DS used: Min heap which automatically works with minimum of all edges.
+
+```cpp
+```
