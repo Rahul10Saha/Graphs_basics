@@ -166,3 +166,7 @@ int main()
 }
 ```
 
+# Prims's Algorithm
+
+![image](https://user-images.githubusercontent.com/65001893/200225206-7862418f-2c25-4f67-a802-fc3f915d8ab0.png)
+
