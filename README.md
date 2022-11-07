@@ -394,3 +394,19 @@ Intuition: Erase already existing paths
 Though set is not that efficient than Priority Queue, even set.erase() takes log time. It may improve with the size of graph gets bigger
 
 Cons: Negative cycle er jonne hobena kaj
+
+# Floyd Warshall (Multi source to multi destination shortest path algorithm)
+- Helps to detect negative cycles as well. 
+- Go via every vertices/nodes and find the shortest one. (DP laga lo :3)
+
+Consider this graph
+```mermaid
+graph TD;
+    0--6-->1;
+    0--4-->3;
+    0--2-->2;
+    2--1-->4;
+    2--3-->1;
+    3--1-->1;
+    4--1-->1;
+```
