@@ -8,6 +8,8 @@ graph TD;
     A-->D;
     B-->E;
 ```
+- BFS Traversal: A B C D E
+- DFS Traversal: A B E C D
 
 ## BFS Traversal
 
@@ -181,5 +183,81 @@ int main()
 - Intuition: Start with the minimum cost wala edges 
 - Therefore, DS used: Min heap which automatically works with minimum of all edges.
 
+Prim's algorithm actually works on the fact that choose the minimum most edges and see if the tree is spanned or not.
+So, it's a GREEDY Algorithm.
+
 ```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> iPair;
+
+
+void addEdge(vector <pair<int, int> > adj[], int u,
+                                     int v, int wt)
+{
+    adj[u].push_back(make_pair(v, wt));
+    adj[v].push_back(make_pair(u, wt));
+}
+
+
+void primMST(int V,vector<iPair> adj[])
+{
+    priority_queue<iPair,vector<iPair>,greater<iPair>> pq;
+    vector<int> vis(V,0);
+    pq.push({0,0});
+    int sum =0;
+    while(!pq.empty())
+        {
+
+            auto it = pq.top();
+            pq.pop();
+            int node = it.second;
+            int wt = it.first;
+
+            if(vis[node]==1)continue;
+            vis[node] =1;
+            sum+=wt;
+            for(auto it: adj[node])
+            {
+                int adjnode = it.first;
+                int adjwt = it.second;
+                if(!vis[adjnode])
+                pq.push({adjwt,adjnode});
+            }
+        }
+    cout<<"The sum is"<<sum;
+}
+
+int main()
+{
+    int V = 7;
+    vector<iPair > adj[V];
+    addEdge(adj, 0, 1, 1);
+    addEdge(adj, 1, 2, 2);
+    addEdge(adj, 2, 3, 3);
+    addEdge(adj, 1, 4, 1);
+    addEdge(adj, 1, 5, 4);
+    addEdge(adj, 2, 4, 3);
+    addEdge(adj, 2, 6, 7);
+    addEdge(adj, 3, 4, 5);
+    addEdge(adj, 3, 6, 8);
+    addEdge(adj, 4, 5, 9);
+
+
+    primMST(V,adj);
+
+    return 0;
+}
+```
+-Time Complexity: O(ElogE) , where E is number of edges
+-Space Complexity: O(E) //For priority queue
+
+Graph used:
+
+```mermaid
+graph TD;
+    1-->2;
+    1-->3;
+    1-->4;
+    2-->5;
 ```
