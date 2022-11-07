@@ -435,12 +435,69 @@ dp[0][1] ---> (0->1) cost = 6;  // direct path
  
  Now, how to detect a negative cycle?
  
- ```mermaid
-graph TD;
-    0--(-2)-->1;
-    1--(-3)-->2;
-    2--2-->0;
-```
+![image](https://user-images.githubusercontent.com/65001893/200354504-b3b12425-5cd3-4bec-b0d1-9a75032c71a0.png)
+If from node i to i the cost is <0, negative cycle detected.
  
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+
+    //Inplace manipulation
+    void floyd_warshall(vector<vector<int>> &matrix)
+    {
+        int n = matrix.size();
+        // Initialization
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+              if(matrix[i][j] == -1)
+                    matrix[i][j] = 1e8;
+              if(i==j)matrix[i][j]=0;
+            }
+        }
+
+        for(int via =0;via<n;via++)
+        {
+            for(int i=0;i<n;i++)
+            {
+                for(int j=0;j<n;j++)
+                {
+                  matrix[i][j] = min(matrix[i][j],matrix[i][via]+matrix[via][j]);
+                }
+            }
+        }
+
+        //Restore to initial values
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+              if(matrix[i][j] == 1e8)
+                    matrix[i][j] = -1;
+            }
+        }
+
+        //Print
+        cout<<"\n The shortest path matrix is\n ";
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cout<<matrix[i][j]<<"  ";
+            }
+            cout<<endl;
+        }
+    }
+
+int main()
+{
+    vector<vector<int>> matrix = {{0,1,43},{1,0,6},{-1,-1,0}};
+    floyd_warshall(matrix);
+}
+```
+
+
 
  
