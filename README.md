@@ -350,7 +350,7 @@ int main()
 }
 ```
 
-### Way 2: Set (since minimum distance is there, prioritize the minimum weights, ---> Greedy Approach)
+### Way 2: Set
 
 ```cpp
 void dijkistra_using_set(int V, vector<iPair> adj[], int source)
@@ -390,4 +390,5 @@ void dijkistra_using_set(int V, vector<iPair> adj[], int source)
 
 }
 ```
-
+Intuition: Erase already existing paths
+Though set is not that efficient than Priority Queue, even set.erase() takes log time. It may improve with the size of graph gets bigger
