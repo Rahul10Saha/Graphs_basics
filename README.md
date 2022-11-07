@@ -350,4 +350,44 @@ int main()
 }
 ```
 
+### Way 2: Set (since minimum distance is there, prioritize the minimum weights, ---> Greedy Approach)
+
+```cpp
+void dijkistra_using_set(int V, vector<iPair> adj[], int source)
+{
+    set<iPair> s;
+    vector<int> distance(V,INT_MAX);
+
+    s.insert({0,source});
+    distance[source]=0;
+
+    while(!s.empty())
+    {
+        auto it = *(s.begin());
+        int node = it.second;
+        int dis = it.first;
+        s.erase(it);
+
+
+        for(auto it: adj[node])
+        {
+            int adjnode = it.first;
+            int adjweight = it.second;
+            if(dis+adjweight<distance[adjnode])
+            {
+                if(distance[adjnode]!=INT_MAX)
+                {
+                    s.erase({distance[adjnode],adjnode});
+                }
+                distance[adjnode] = dis + adjweight;
+                s.insert({distance[adjnode],adjnode});
+            }
+        }
+    }
+
+    for(int i=0;i<distance.size();i++)
+        cout<<"The distance of node"<<i<<"from"<<source<<"is"<<distance[i]<<endl;
+
+}
+```
 
