@@ -410,3 +410,23 @@ graph TD;
     3--1-->1;
     4--1-->1;
 ```
+
+Suppose you are moving from node 0 to node 1 
+then there can be multiple ways to reach destination via other nodes.
+
+Let, dp[i][j] be the cost while moving from node i to node j
+dp[0][1] ---> (0->1) cost = 6;  // direct path
+         ---> (0->2) + (2->1) cost = 5;  // via node 2
+         ---> (0->3) + (3->1) cost = 5; // via node 3
+         ---> (0->4) + (4->1) cost = 4 (minimum)  // via node 2 then via 4 
+         //Now (0->4) is not a direct path, via 2
+         (Basically trying all possible vias)
+         
+ Now, generalizing the entire approach
+ If I consider i to be the soure, j to be the destination and k to be the via node
+ can i say each and every path can be described as dp[i][k] + dp[k][j] ?? Yes, indeed
+ and out of all the fucking possible paths, choose the goddamn minimum. 
+ 
+ So, generalized statement : min(dp[i][k] + dp[k][j])
+ 
+ 
